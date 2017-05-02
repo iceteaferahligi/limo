@@ -34,5 +34,17 @@ public class BulletMovement : MonoBehaviour {
         {
             Destroy(col.gameObject);
         }
+
+        if(col.transform.tag == "enemy1")
+        {
+            Destroy(col.gameObject);
+        }
+        if(col.transform.tag == "bigboss")
+        {
+            Destroy(col.gameObject);
+        }
+       
+       
     } 
+  
 }

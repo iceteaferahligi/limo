@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Limo", "Assembly-CSharp.csproj", "{35EC5E23-BAC8-F9A9-FC25-537E8406F214}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "limo", "Assembly-CSharp.csproj", "{4C4FB861-06FE-7D8B-A1AD-C49B7AB7C720}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{35EC5E23-BAC8-F9A9-FC25-537E8406F214}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{35EC5E23-BAC8-F9A9-FC25-537E8406F214}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{35EC5E23-BAC8-F9A9-FC25-537E8406F214}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{35EC5E23-BAC8-F9A9-FC25-537E8406F214}.Release|Any CPU.Build.0 = Release|Any CPU
+		{4C4FB861-06FE-7D8B-A1AD-C49B7AB7C720}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{4C4FB861-06FE-7D8B-A1AD-C49B7AB7C720}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{4C4FB861-06FE-7D8B-A1AD-C49B7AB7C720}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{4C4FB861-06FE-7D8B-A1AD-C49B7AB7C720}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -89,8 +89,8 @@ public class PlayerMovement : MonoBehaviour
         // Add velocity to the bullet
         bullet.GetComponent<Rigidbody2D>().velocity = bullet.transform.forward * 6;
 
-        // Destroy the bullet after 2 seconds
-        Destroy(bullet, 2.0f);
+        // Destroy the bullet after 1 seconds
+        Destroy(bullet, 1.0f);
     }
 
     void OnCollisionStay2D(Collision2D coll) // C#, type first, name in second
@@ -102,4 +102,13 @@ public class PlayerMovement : MonoBehaviour
 
         }
     }
+    void OnTriggerEnter2D(Collider2D col)
+    {
+        if (col.transform.tag == "coin")
+        {
+            Destroy(col.gameObject);
+            CoinScript.instance_.calculateCoin();
+        }
+    }
+
 }
