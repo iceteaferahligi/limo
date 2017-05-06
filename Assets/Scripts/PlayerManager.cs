@@ -6,27 +6,31 @@ public class PlayerManager : MonoBehaviour {
 
     public static PlayerManager instance;
 
-    public bool isGrounded = false;
-    GameObject player;
+    public PlayerMovement playerMovement;
 
-    void Awake () {
-        instance = new PlayerManager();
-    }
 
     void Start () {
-        player = GameObject.Find("Player");
+        instance = this;
     }
 
     void OnTriggerEnter2D (Collider2D coll) {
         if (coll.transform.tag == "Ground") {
-            isGrounded = true;
+            playerMovement.isGrounded = true;
         }
-        isGrounded = true;
+       
+    }
+    void OnTriggerStay2D(Collider2D coll)
+    {
+        if (coll.transform.tag == "Ground")
+        {
+            playerMovement.isGrounded = true;
+        }
+       
     }
 
     void OnTriggerExit2D (Collider2D coll) {
         if (coll.transform.tag == "Ground") {
-            isGrounded = false;
+            playerMovement.isGrounded = false;
         }
     }
 }

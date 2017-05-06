@@ -9,7 +9,7 @@ public class deadZone : MonoBehaviour {
     /// </summary>
     int lives = 0;
 
-    void OnTriggerEnter(Collider col)
+    void OnTriggerEnter2D(Collider2D col)
     {
         //GM.instance.LoseLife();
         if (col.transform.tag == "Player")

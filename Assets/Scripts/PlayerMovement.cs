@@ -6,66 +6,86 @@ public class PlayerMovement : MonoBehaviour
 {
 
     Rigidbody2D rb;
-    public Vector2 velocity;
+    public float velocity;
     public GameObject bulletPrefab;
     public Transform bulletSpawn;
-
-    float jumpSpeed = 3000f;
+    public PlayerManager pm;
+    public float jumpForce = 200f;
+    float scaleX;
+    float horizontalAxisInput;
+    public float maxSpeed;
+    bool jumping = false;
+    public bool isGrounded = true;
 
     float vVelocity = 0f;
     int direction = 1;
 
 
-
     //velocity
-    private float value = 150;
+    private float value = 100;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody2D>();
-        velocity = Vector2.zero;
-
+       
         GameManager.instance.player = this.gameObject;
+        pm = GameObject.Find("Ground Checker").GetComponent<PlayerManager>();
+
+        rb = GetComponent<Rigidbody2D>();
+        scaleX = transform.localScale.x;
 
     }
 
     void Update()
     {
-       
 
+        jumping = Input.GetKeyDown(Constants.jump);
+
+        if (jumping/* && isGrounded*/)
+        {
+            rb.AddForce(Vector2.up * jumpForce);
+           
+        }
+        jumping = false;
 
     }
+
+
 
     void FixedUpdate()
     {
         // physics calculation should be here
 
+        horizontalAxisInput = Input.GetAxis("Horizontal");
 
-        velocity = Vector2.right * Input.GetAxis("Horizontal") * Time.deltaTime * value;
 
-        if (Input.GetKeyDown(Constants.jump))
+        Vector3 easeVelocity = rb.velocity;
+        easeVelocity.y = rb.velocity.y;
+        easeVelocity.z = 0;
+        easeVelocity.x *= 0.75f;
+
+
+        rb.velocity = easeVelocity;
+
+
+        horizontalAxisInput = Input.GetAxis("Horizontal");
+
+        if (horizontalAxisInput < -0.1F)
         {
-            
-            rb.AddForce(Vector2.up * jumpSpeed);
+            transform.localScale = new Vector3(-scaleX, transform.localScale.y, transform.localScale.z);
         }
-  
-
-         
-        if (velocity.x > 1)
+        else if (horizontalAxisInput > 0.1F)
         {
-            direction = 1;
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x),transform.localScale.y,1);
+            transform.localScale = new Vector3(scaleX, transform.localScale.y, transform.localScale.z);
         }
-        else
+        rb.AddForce(Vector2.right * horizontalAxisInput * velocity);
+        if (rb.velocity.x > maxSpeed)
         {
-           direction = -1;
-            transform.localScale = new Vector3(Mathf.Abs(transform.localScale.x)*-1,transform.localScale.y,1);
+            rb.velocity = new Vector2(maxSpeed, rb.velocity.y);
         }
-        
-            
-        
-
-        rb.velocity = velocity - Vector2.up* 0.1f;
+        if (rb.velocity.x < -maxSpeed)
+        {
+            rb.velocity = new Vector2(maxSpeed, rb.velocity.y);
+        }
 
 
         if (Input.GetKeyDown(Constants.fire))
@@ -93,21 +113,18 @@ public class PlayerMovement : MonoBehaviour
         Destroy(bullet, 1.0f);
     }
 
-    void OnCollisionStay2D(Collision2D coll) // C#, type first, name in second
-    {
-        if (coll.gameObject.tag == "Ground" && (Input.GetKey(KeyCode.W)))
-        {
-            //Jump Script
-            rb.AddForce(Vector2.up * jumpSpeed, ForceMode2D.Force);
-
-        }
-    }
+   
     void OnTriggerEnter2D(Collider2D col)
     {
         if (col.transform.tag == "coin")
         {
             Destroy(col.gameObject);
-            CoinScript.instance_.calculateCoin();
+            //CoinScript.instance_.calculateCoin();
+        }
+
+        if(col.transform.tag == "meteor")
+        {
+            //GM.instance.LoseLife();
         }
     }
 
